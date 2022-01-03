@@ -1,0 +1,66 @@
+---
+title: "heatmap"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,error=FALSE,message= FALSE,warning = FALSE)
+```
+
+## Rによるヒートマップおよび等高線マップ作成
+
+latticeExtraによるスムージングヒートマップの作成と
+抜けているデータの補間からの等高線マップの作成
+
+### CARSからのデータ読み取り
+
+CARSライブラリからmtcarsデータを使用
+
+```{r cars}
+library(CARS) #mtcarsデータ使用のため
+head(mtcars)
+```
+
+### スムージングヒートマップ
+
+latticeExtraを使用
+
+```{r heatmap}
+#latticeExtraを使用してスムージングヒートマップを作成
+library(latticeExtra) 
+windowsFonts("MEI"=windowsFont("Meiryo"))#メイリオをMEIという名前でフォント指定
+#燃費(mpg)に対する排気量(disp)とシリンダー個数(cyl)のプロット
+levelplot(mpg ~ disp * cyl, mtcars, 
+          panel = panel.levelplot.points, cex = 1.2,
+          main="燃費への影響",
+          sub ="mtcarsデータより",
+          xlab="排気量",
+          ylab="シリンダー個数",
+          ylim=c(4,8),
+          par.settings=list(axis.text=list(fontfamily="MEI"),
+                            par.xlab.text=list(fontfamily="MEI"),
+                            par.ylab.text=list(fontfamily="MEI"),
+                            par.main.text=list(fontfamily="MEI"),
+                            par.sub.text=list(fontfamily="MEI"))
+          
+) + 
+  layer_(panel.2dsmoother(..., n = 200))
+```
+
+### データ補間からの等高線マップ
+
+```{r contour}
+library(akima)#等高線マップは歯抜けのデータでは描けないので補間するためakimaを使用
+akima.T <- interp(mtcars$disp,mtcars$cyl,mtcars$mpg,
+                  duplicate = "mean")
+#akimaのinterpにてdisp,cyl,mpgをx,y,zに補間して格納
+
+par(family="MEI")#フォント指定
+image(akima.T$x,akima.T$y,akima.T$z,
+      xlab="排気量",
+      ylab="シリンダー個数")
+contour(akima.T$x,akima.T$y,akima.T$z,add=TRUE)#等高線マップ作成
+points(mtcars$disp,mtcars$cyl) # 実際に与えられたデータ点の位置をプロット
+
+```
+
