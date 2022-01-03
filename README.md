@@ -58,7 +58,7 @@ body {
 <span id="cb3-17"><a href="file:///C:/Users/user/AppData/Local/Temp/RtmpiWjHzq/preview-168847811c55.html#cb3-17" aria-hidden="true" tabindex="-1"></a>          </span>
 <span id="cb3-18"><a href="file:///C:/Users/user/AppData/Local/Temp/RtmpiWjHzq/preview-168847811c55.html#cb3-18" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
 <span id="cb3-19"><a href="file:///C:/Users/user/AppData/Local/Temp/RtmpiWjHzq/preview-168847811c55.html#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layer_</span>(<span class="fu">panel.2dsmoother</span>(..., <span class="at">n =</span> <span class="dv">200</span>))</span></code></pre></div>
-<p><img src=""><!-- --></p>
+<p><img src=https://github.com/lmtake/R-/blob/main/heatmap.png><!-- --></p>
 <h3 id="データ補間からの等高線マップ">データ補間からの等高線マップ</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="file:///C:/Users/user/AppData/Local/Temp/RtmpiWjHzq/preview-168847811c55.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(akima)<span class="co">#等高線マップは歯抜けのデータでは描けないので補間するためakimaを使用</span></span>
 <span id="cb4-2"><a href="file:///C:/Users/user/AppData/Local/Temp/RtmpiWjHzq/preview-168847811c55.html#cb4-2" aria-hidden="true" tabindex="-1"></a>akima.T <span class="ot">&lt;-</span> <span class="fu">interp</span>(mtcars<span class="sc">$</span>disp,mtcars<span class="sc">$</span>cyl,mtcars<span class="sc">$</span>mpg,</span>
